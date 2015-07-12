@@ -66,12 +66,12 @@ public class EmergencyActivity extends ActionBarActivity implements View.OnClick
     public void onClick(View v) {
         String text = smsText.getText().toString();
         Location location = locationManager.getLastKnownLocation(provider);
-        String sms;
+        String sms = "med ";
 
         if (location != null) {
             String lat = Double.toString(location.getLatitude());
             String lng = Double.toString(location.getLongitude());
-            sms = lat + ", " + lng + "\n" + text;
+            sms = lat + " " + lng + " " + text;
         } else {
             sms = text;
         }
@@ -83,7 +83,6 @@ public class EmergencyActivity extends ActionBarActivity implements View.OnClick
             smsText.setEnabled(false);
             confirmation.setText("Successfully sent!");
         } catch (Exception e) {
-            Log.d("tag", e.toString());
             confirmation.setText("Oops! Something went wrong, try again in a few minutes");
         }
     }
