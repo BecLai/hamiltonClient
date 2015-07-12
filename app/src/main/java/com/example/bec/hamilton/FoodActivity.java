@@ -1,14 +1,19 @@
 package com.example.bec.hamilton;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,7 +25,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 
 public class FoodActivity extends Activity {
 
@@ -38,16 +42,45 @@ public class FoodActivity extends Activity {
         add("Delessio Market & Bakery");
         add("Delfina");
     }};
+    Button subscribeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
         listView = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, foodCodes);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+            this,
+            android.R.layout.simple_list_item_1,
+            android.R.id.text1,
+            foodCodes);
         // Assign adapter to ListView
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String sms = "food " + foodCodes.get(position).replaceAll("\\s+","");
+                SmsManager smsManager = SmsManager.getDefault();
+                smsManager.sendTextMessage("+13365257054", null, sms, null, null);
+            }
+        });
+
+        subscribeButton = (Button) findViewById(R.id.subscribe);
+        subscribeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sms = "food sub";
+
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage("+13365257054", null, sms, null, null);
+                    subscribeButton.setEnabled(false);
+                } catch (Exception e) {
+                }
+            }
+        });
+
     }
 
     @Override
