@@ -58,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Get my Uber"
-        android:id="@+id/button2"
+        android:id="@+id/emerencyButton"
         android:background="#ff85877c"
         android:padding="20dp"
         android:textColor="#ffffffff"

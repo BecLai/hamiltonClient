@@ -1,17 +1,43 @@
 package com.example.bec.hamilton;
 
+import android.content.Context;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 
-public class EmergencyActivity extends ActionBarActivity {
+public class EmergencyActivity extends ActionBarActivity implements View.OnClickListener {
+
+    Button emergencyButton;
+    EditText smsText;
+    EditText confirmation;
+    LocationManager locationManager;
+    String provider;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, false);
+
+        emergencyButton = (Button) findViewById(R.id.emerencyButton);
+        smsText = (EditText)findViewById(R.id.helpText);
+        confirmation = (EditText)findViewById(R.id.confirmation);
+
+        emergencyButton.setOnClickListener(this);
     }
 
     @Override
@@ -34,5 +60,31 @@ public class EmergencyActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        String text = smsText.getText().toString();
+        Location location = locationManager.getLastKnownLocation(provider);
+        String sms;
+
+        if (location != null) {
+            String lat = Double.toString(location.getLatitude());
+            String lng = Double.toString(location.getLongitude());
+            sms = lat + ", " + lng + "\n" + text;
+        } else {
+            sms = text;
+        }
+
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage("+16263297989", null, sms, null, null);
+            emergencyButton.setEnabled(false);
+            smsText.setEnabled(false);
+            confirmation.setText("Successfully sent!");
+        } catch (Exception e) {
+            Log.d("tag", e.toString());
+            confirmation.setText("Oops! Something went wrong, try again in a few minutes");
+        }
     }
 }

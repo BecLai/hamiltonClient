@@ -22,9 +22,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         foodButton = (Button) findViewById(R.id.foodButton);
         uberButton = (Button) findViewById(R.id.uberButton);
         emergencyButton = (Button) findViewById(R.id.emergencyButton);
+
         foodButton.setOnClickListener(this);
         uberButton.setOnClickListener(this);
         emergencyButton.setOnClickListener(this);
@@ -55,7 +57,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.foodButton:
-                Intent foodIntent=new Intent(v.getContext(),FoodActivity.class );
+                Intent foodIntent = new Intent(v.getContext(),FoodActivity.class );
                 startActivity(foodIntent);
                 break;
             case R.id.uberButton:
