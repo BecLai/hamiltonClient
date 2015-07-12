@@ -52,6 +52,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         uberButton.setOnClickListener(this);
         emergencyButton.setOnClickListener(this);
         boolean connected = PebbleKit.isWatchConnected(getApplicationContext());
+
+        if (!connected)
+            return;
+
         Log.d("PEBBLE", "Pebble is " + (connected ? "connected" : "not connected"));
         PebbleKit.startAppOnPebble(getApplicationContext(), PEBBLE_APP_UUID);
         dataloggingReceiver = new PebbleKit.PebbleDataLogReceiver(
