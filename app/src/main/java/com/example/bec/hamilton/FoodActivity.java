@@ -26,10 +26,47 @@ public class FoodActivity extends Activity {
 
     ListView listView;
     List<String> foodCodes = new ArrayList<String>(){{
-        add("Kentucky Fried Chicken: KFC");
-        add("McDonalds: MCD");
-        add("Jamba Juice: JJ");
-        add("Pizza Hut: PH");
+        add("4505 Meats");
+        add("Alicia's Tamales Los Mayas");
+        add("AQ");
+        add("Azalina's");
+        add("Beast and the Hare");
+        add("Big Chef Tom's Belly Burgers");
+        add("Charles Chcolates");
+        add("Chino");
+        add("Curry Up Now");
+        add("Delessio Market & Bakery");
+        add("Delfina");
+        add("Earthly Delights");
+        add("El Huarache Loco");
+        add("Endless Summer Sweets");
+        add("Escape from New York Pizza");
+        add("Freshroll Vietnamese Rolls & Bowls");
+        add("Full Belly Farm");
+        add("Glaze Teriyaki");
+        add("Humphry Slocombe Ice Cream");
+        add("Il Cane Rosso");
+        add("La Urbana");
+        add("Litle Skillet");
+        add("Long Meadow Ranch");
+        add("Loving Cup");
+        add("Lucca Foods");
+        add("Bacon Bacon");
+        add("Del Popolo");
+        add("Event Specialists");
+        add("Kara's Cupcakes");
+        add("Living Greens Juice");
+        add("Rocko's Ice Cream Tacos");
+        add("Senor SiSig");
+        add("Seoul on Wheels");
+        add("Sprogs");
+        add("The Chairman Truck");
+        add("The Rib Whip");
+        add("Those Fabulous Frickle Brothers");
+        add("Candybar Dessert Lounge");
+        add("Epic Cookies");
+        add("Guittard Chocoalte Company");
+        add("Sharona's Chocolate Shop");
     }};
 
     @Override
