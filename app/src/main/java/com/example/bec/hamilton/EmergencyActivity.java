@@ -15,9 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 
-public class EmergencyActivity extends ActionBarActivity implements View.OnClickListener {
+public class EmergencyActivity extends ActionBarActivity {
 
     Button emergencyButton;
+    Button subscribeButton;
     EditText smsText;
     EditText confirmation;
     LocationManager locationManager;
@@ -34,10 +35,50 @@ public class EmergencyActivity extends ActionBarActivity implements View.OnClick
         provider = locationManager.getBestProvider(criteria, false);
 
         emergencyButton = (Button) findViewById(R.id.emerencyButton);
+        subscribeButton = (Button) findViewById(R.id.subscribe);
         smsText = (EditText)findViewById(R.id.helpText);
         confirmation = (EditText)findViewById(R.id.confirmation);
 
-        emergencyButton.setOnClickListener(this);
+        emergencyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = smsText.getText().toString();
+                Location location = locationManager.getLastKnownLocation(provider);
+                String sms = "med ";
+
+                if (location != null) {
+                    String lat = Double.toString(location.getLatitude());
+                    String lng = Double.toString(location.getLongitude());
+                    sms += lat + " " + lng + " " + text;
+                } else {
+                    sms += text;
+                }
+
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage("+13365257054", null, sms, null, null);
+                    emergencyButton.setEnabled(false);
+                    smsText.setEnabled(false);
+                    confirmation.setText("Successfully sent!");
+                } catch (Exception e) {
+                    confirmation.setText("Oops! Something went wrong, try again in a few minutes");
+                }
+            }
+        });
+
+        subscribeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String sms = "med sub";
+
+                try {
+                    SmsManager smsManager = SmsManager.getDefault();
+                    smsManager.sendTextMessage("+13365257054", null, sms, null, null);
+                    subscribeButton.setEnabled(false);
+                } catch (Exception e) {
+                }
+            }
+        });
     }
 
     @Override
@@ -62,28 +103,4 @@ public class EmergencyActivity extends ActionBarActivity implements View.OnClick
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onClick(View v) {
-        String text = smsText.getText().toString();
-        Location location = locationManager.getLastKnownLocation(provider);
-        String sms = "med ";
-
-        if (location != null) {
-            String lat = Double.toString(location.getLatitude());
-            String lng = Double.toString(location.getLongitude());
-            sms += lat + " " + lng + " " + text;
-        } else {
-            sms += text;
-        }
-
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage("+13365257054", null, sms, null, null);
-            emergencyButton.setEnabled(false);
-            smsText.setEnabled(false);
-            confirmation.setText("Successfully sent!");
-        } catch (Exception e) {
-            confirmation.setText("Oops! Something went wrong, try again in a few minutes");
-        }
-    }
 }
