@@ -71,9 +71,9 @@ public class EmergencyActivity extends ActionBarActivity implements View.OnClick
         if (location != null) {
             String lat = Double.toString(location.getLatitude());
             String lng = Double.toString(location.getLongitude());
-            sms = lat + " " + lng + " " + text;
+            sms += lat + " " + lng + " " + text;
         } else {
-            sms = text;
+            sms += text;
         }
 
         try {
