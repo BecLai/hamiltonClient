@@ -62,7 +62,7 @@ public class EmergencyActivity extends ActionBarActivity {
                     smsManager.sendTextMessage("+13365257054", null, sms, null, null);
                     emergencyButton.setEnabled(false);
                     smsText.setEnabled(false);
-                    confirmation.setText("Successfully sent!");
+                    confirmation.setText("The authorities have been alerted! You'll receive a confirmation SMS shortly.");
                 } catch (Exception e) {
                     confirmation.setText("Oops! Something went wrong, try again in a few minutes");
                 }

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import java.util.Map;
 public class FoodActivity extends Activity {
     Context context = this;
     ListView listView;
+    EditText confirmation;
     List<String> foodCodes = new ArrayList<String>(){{
         add("4505 Meats");
         add("Alicia's Tamales Los Mayas");
@@ -62,11 +64,14 @@ public class FoodActivity extends Activity {
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String sms = "food " + foodCodes.get(position).replaceAll("\\s+","");
+                String sms = "food " + foodCodes.get(position).replaceAll("\\s+", "");
                 SmsManager smsManager = SmsManager.getDefault();
                 smsManager.sendTextMessage("+13365257054", null, sms, null, null);
+                confirmation.setText("Food order succesfully sent! You'll receive a confirmation SMS shortly.");
             }
         });
+
+        confirmation = (EditText)findViewById(R.id.confirmation);
 
         subscribeButton = (Button) findViewById(R.id.subscribe);
         subscribeButton.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +93,7 @@ public class FoodActivity extends Activity {
                     smsManager.sendTextMessage("+13365257054", null, sms, null, null);
                     subscribeButton.setEnabled(false);
                 } catch (Exception e) {
+                    confirmation.setText("Oops! Something went wrong, try again in a few minutes");
                 }
             }
         });

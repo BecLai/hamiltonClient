@@ -81,7 +81,7 @@ public class UberActivity extends ActionBarActivity{
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage("+13365257054", null, sms, null, null);
                     getUberButton.setEnabled(false);
-                    confirmation.setText("Successfully requested an uber!");
+                    confirmation.setText("Successfully requested an uber! You'll receive a confirmation message shortly.");
                 } catch (Exception e) {
                     confirmation.setText("Oops! Something went wrong, try again in a few minutes");
                 }
