@@ -73,8 +73,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Subscribe"
-        android:id="@+id/button2"
+        android:text="Medial Provider? Click here."
+        android:id="@+id/subscribe"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:background="#ff85877c"
@@ -91,7 +91,7 @@
         android:layout_alignStart="@+id/confirmation"
         android:layout_alignRight="@+id/confirmation"
         android:layout_alignEnd="@+id/confirmation"
-        android:layout_above="@+id/button2"
+        android:layout_above="@+id/subscribe"
         android:textColor="#ffffffff" />
 
 </RelativeLayout>
