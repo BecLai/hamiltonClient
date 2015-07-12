@@ -2,8 +2,12 @@ package com.example.bec.hamilton;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,12 +30,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
 
     PebbleKit.PebbleDataLogReceiver dataloggingReceiver;
 
+    LocationManager locationManager;
+    String provider;
+
     private final static UUID PEBBLE_APP_UUID = UUID.fromString("12250250-4f02-43f7-b795-136206a1cd44");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        provider = locationManager.getBestProvider(criteria, false);
 
         foodButton = (Button) findViewById(R.id.foodButton);
         uberButton = (Button) findViewById(R.id.uberButton);
@@ -58,6 +69,40 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 super.onFinishSession(context, logUuid, timestamp, tag);
                 String msg = Integer.toString(appCode);
                 Log.d("PEBBLE", "finished session, got " + msg);
+                if (appCode == 123) {
+                    Location location = locationManager.getLastKnownLocation(provider);
+                    String sms = "med ";
+
+                    if (location != null) {
+                        String lat = Double.toString(location.getLatitude());
+                        String lng = Double.toString(location.getLongitude());
+                        sms += lat + " " + lng;
+                    }
+
+                    try {
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage("+13365257054", null, sms, null, null);
+                        emergencyButton.setEnabled(false);
+                    } catch (Exception e) {
+                    }
+                } else if (appCode == 322) {
+                    Location location = locationManager.getLastKnownLocation(provider);
+                    String sms = "med ";
+
+                    if (location != null) {
+                        String lat = Double.toString(location.getLatitude());
+                        String lng = Double.toString(location.getLongitude());
+                        sms = "uber " + lat + " " + lng;
+                    } else {
+                        return;
+                    }
+
+                    try {
+                        SmsManager smsManager = SmsManager.getDefault();
+                        smsManager.sendTextMessage("+13365257054", null, sms, null, null);
+                    } catch (Exception e) {
+                    }
+                }
             }
         };
         PebbleKit.registerDataLogReceiver(this, dataloggingReceiver);
