@@ -76,10 +76,13 @@
         android:text="Medial Provider? Click here."
         android:id="@+id/subscribe"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:background="#ff85877c"
         android:textColor="#ffffffff"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView5"
+        android:layout_alignLeft="@+id/textView5"
+        android:layout_alignStart="@+id/textView5" />
 
     <TextView
         android:layout_width="wrap_content"

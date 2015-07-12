@@ -74,6 +74,7 @@ public class EmergencyActivity extends ActionBarActivity {
                 try {
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage("+13365257054", null, sms, null, null);
+                    subscribeButton.setEnabled(false);
                 } catch (Exception e) {
                 }
             }
