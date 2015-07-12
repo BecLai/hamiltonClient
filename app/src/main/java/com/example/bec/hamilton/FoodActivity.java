@@ -1,7 +1,9 @@
 package com.example.bec.hamilton;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -27,7 +29,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FoodActivity extends Activity {
-
+    Context context = this;
     ListView listView;
     List<String> foodCodes = new ArrayList<String>(){{
         add("4505 Meats");
@@ -70,8 +72,17 @@ public class FoodActivity extends Activity {
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("You are now subscribed!");
+                builder.setMessage("You will be notified via text of food orders!");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 String sms = "food sub";
-
                 try {
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage("+13365257054", null, sms, null, null);

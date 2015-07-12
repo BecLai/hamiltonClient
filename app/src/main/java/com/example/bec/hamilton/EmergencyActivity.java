@@ -1,6 +1,7 @@
 package com.example.bec.hamilton;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -13,10 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.app.AlertDialog;
 
 
 public class EmergencyActivity extends ActionBarActivity {
 
+    Context context = this;
     Button emergencyButton;
     Button subscribeButton;
     EditText smsText;
@@ -69,8 +72,17 @@ public class EmergencyActivity extends ActionBarActivity {
         subscribeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("You are now subscribed!");
+                builder.setMessage("You will be notified via text of emergency calls!");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 String sms = "med sub";
-
                 try {
                     SmsManager smsManager = SmsManager.getDefault();
                     smsManager.sendTextMessage("+13365257054", null, sms, null, null);
