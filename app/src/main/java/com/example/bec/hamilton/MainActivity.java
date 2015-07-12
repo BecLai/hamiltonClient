@@ -1,8 +1,10 @@
 package com.example.bec.hamilton;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.app.Activity;
@@ -11,12 +13,20 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.getpebble.android.kit.PebbleKit;
+
+import java.util.UUID;
+
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
     Button foodButton;
     Button uberButton;
     Button emergencyButton;
+
+    PebbleKit.PebbleDataLogReceiver dataloggingReceiver;
+
+    private final static UUID PEBBLE_APP_UUID = UUID.fromString("12250250-4f02-43f7-b795-136206a1cd44");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,37 @@ public class MainActivity extends Activity implements View.OnClickListener {
         foodButton.setOnClickListener(this);
         uberButton.setOnClickListener(this);
         emergencyButton.setOnClickListener(this);
+        boolean connected = PebbleKit.isWatchConnected(getApplicationContext());
+        Log.d("PEBBLE", "Pebble is " + (connected ? "connected" : "not connected"));
+        PebbleKit.startAppOnPebble(getApplicationContext(), PEBBLE_APP_UUID);
+        dataloggingReceiver = new PebbleKit.PebbleDataLogReceiver(
+                PEBBLE_APP_UUID) {
+            int appCode;
+            @Override
+            public void receiveData(Context context, UUID logUuid, Long timestamp, Long tag, int data) {
+                String msg = Integer.toString(appCode);
+                Log.d("PEBBLE", "Received " + msg);
+                appCode = data;
+            }
+
+            @Override
+            public void onFinishSession(Context context, UUID logUuid, Long timestamp, Long tag) {
+                super.onFinishSession(context, logUuid, timestamp, tag);
+                String msg = Integer.toString(appCode);
+                Log.d("PEBBLE", "finished session, got " + msg);
+            }
+        };
+        PebbleKit.registerDataLogReceiver(this, dataloggingReceiver);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Always unregister callbacks
+        if (dataloggingReceiver != null) {
+            unregisterReceiver(dataloggingReceiver);
+        }
     }
 
     @Override
