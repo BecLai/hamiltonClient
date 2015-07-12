@@ -78,7 +78,7 @@ public class EmergencyActivity extends ActionBarActivity implements View.OnClick
 
         try {
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage("+16263297989", null, sms, null, null);
+            smsManager.sendTextMessage("+13365257054", null, sms, null, null);
             emergencyButton.setEnabled(false);
             smsText.setEnabled(false);
             confirmation.setText("Successfully sent!");
