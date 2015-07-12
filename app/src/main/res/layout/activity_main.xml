@@ -1,0 +1,94 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="#ff18adab">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:background="@drawable/logo_3"
+        android:layout_gravity="center_vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/moneyImage"
+        android:background="@drawable/money"
+        android:layout_below="@+id/imageView"
+        android:layout_alignLeft="@+id/imageView"
+        android:layout_alignStart="@+id/imageView"
+        android:layout_margin="5dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/carImage"
+        android:layout_below="@+id/moneyImage"
+        android:layout_alignRight="@+id/moneyImage"
+        android:layout_alignEnd="@+id/moneyImage"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/car" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pay for food"
+        android:id="@+id/foodButton"
+        android:layout_toRightOf="@+id/moneyImage"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_below="@+id/imageView"
+        android:layout_marginRight="27dp"
+        android:layout_marginEnd="27dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignBottom="@+id/moneyImage"
+        android:backgroundTint="#ff85877c"
+        android:clickable="true"
+        android:textColor="#ffffffff" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call an Uber"
+        android:id="@+id/uberButton"
+        android:layout_alignLeft="@+id/foodButton"
+        android:layout_alignStart="@+id/foodButton"
+        android:layout_alignRight="@+id/foodButton"
+        android:layout_alignEnd="@+id/foodButton"
+        android:layout_above="@+id/emergencyImage"
+        android:layout_alignTop="@+id/carImage"
+        android:background="#ff85877c"
+        android:textColor="#ffffffff" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/emergencyImage"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/caution"
+        android:layout_below="@+id/carImage"
+        android:layout_alignLeft="@+id/carImage"
+        android:layout_alignStart="@+id/carImage" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Emergency Call"
+        android:id="@+id/emergencyButton"
+        android:layout_alignTop="@+id/emergencyImage"
+        android:layout_alignRight="@+id/uberButton"
+        android:layout_alignEnd="@+id/uberButton"
+        android:layout_alignLeft="@+id/uberButton"
+        android:layout_alignStart="@+id/uberButton"
+        android:layout_alignBottom="@+id/emergencyImage"
+        android:background="#ff85877c"
+        android:textColor="#ffffffff" />
+
+</RelativeLayout>
